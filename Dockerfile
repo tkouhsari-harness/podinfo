@@ -1,8 +1,6 @@
 # Stage 1: Build stage
 FROM golang:1.21-alpine as builder
 
-ARG REVISION
-
 WORKDIR /podinfo
 
 COPY go.mod .
@@ -11,6 +9,8 @@ COPY go.sum .
 RUN go mod download
 
 COPY . .
+
+ARG REVISION
 
 RUN CGO_ENABLED=0 go build -ldflags "-s -w \
     -X github.com/stefanprodan/podinfo/pkg/version.REVISION=${REVISION}" \
