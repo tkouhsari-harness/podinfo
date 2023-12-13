@@ -1,14 +1,16 @@
+# Stage 1: Build stage
 FROM golang:1.21-alpine as builder
 
 ARG REVISION
 
-RUN mkdir -p /podinfo/
-
 WORKDIR /podinfo
 
-COPY . .
+COPY go.mod .
+COPY go.sum .
 
 RUN go mod download
+
+COPY . .
 
 RUN CGO_ENABLED=0 go build -ldflags "-s -w \
     -X github.com/stefanprodan/podinfo/pkg/version.REVISION=${REVISION}" \
@@ -18,6 +20,7 @@ RUN CGO_ENABLED=0 go build -ldflags "-s -w \
     -X github.com/stefanprodan/podinfo/pkg/version.REVISION=${REVISION}" \
     -a -o bin/podcli cmd/podcli/*
 
+# Stage 2: Final stage
 FROM alpine:3.18
 
 ARG BUILD_DATE
@@ -35,8 +38,7 @@ WORKDIR /home/app
 
 COPY --from=builder /podinfo/bin/podinfo .
 COPY --from=builder /podinfo/bin/podcli /usr/local/bin/podcli
-COPY ./ui ./ui
-RUN chown -R app:app ./
+COPY --chown=app:app ./ui ./ui
 
 USER app
 
