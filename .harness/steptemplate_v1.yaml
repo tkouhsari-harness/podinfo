@@ -1,0 +1,21 @@
+template:
+  name: steptemplate
+  identifier: steptemplate
+  versionLabel: v1
+  type: Step
+  projectIdentifier: thomas_kouhsari
+  orgIdentifier: December_2023
+  tags: {}
+  spec:
+    timeout: 10m
+    type: ShellScript
+    spec:
+      shell: Bash
+      onDelegate: true
+      delegateSelectors: []
+      source:
+        type: Inline
+        spec:
+          script: echo "first version"
+      environmentVariables: []
+      outputVariables: []
