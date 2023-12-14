@@ -27,4 +27,10 @@ pipeline:
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
+              - step:
+                  name: template
+                  identifier: template
+                  template:
+                    templateRef: steptemplate
+                    versionLabel: v1
         tags: {}
