@@ -23,6 +23,20 @@ template:
               timeout: 10m
               spec:
                 skipDryRun: false
+          - step:
+              type: ShellScript
+              name: ShellScript_1
+              identifier: ShellScript_1
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: echo <+stage.variables.myVar>
+                environmentVariables: []
+                outputVariables: []
+              timeout: 10m
         rollbackSteps:
           - step:
               name: Helm Rollback
