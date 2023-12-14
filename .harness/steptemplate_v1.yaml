@@ -16,6 +16,6 @@ template:
       source:
         type: Inline
         spec:
-          script: echo "second version"
+          script: echo "third version"
       environmentVariables: []
       outputVariables: []
