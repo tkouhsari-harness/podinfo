@@ -23,7 +23,7 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo "hi"
+                        script: echo "hi2"
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
