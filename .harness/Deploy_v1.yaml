@@ -1,0 +1,40 @@
+template:
+  name: Deploy
+  type: Stage
+  projectIdentifier: thomas_kouhsari
+  orgIdentifier: December_2023
+  spec:
+    type: Deployment
+    spec:
+      deploymentType: NativeHelm
+      service:
+        serviceRef: podinfo2
+      environment:
+        environmentRef: Dev
+        deployToAll: false
+        infrastructureDefinitions:
+          - identifier: helm
+      execution:
+        steps:
+          - step:
+              name: Helm Deployment
+              identifier: helmDeployment
+              type: HelmDeploy
+              timeout: 10m
+              spec:
+                skipDryRun: false
+        rollbackSteps:
+          - step:
+              name: Helm Rollback
+              identifier: helmRollback
+              type: HelmRollback
+              timeout: 10m
+              spec: {}
+    failureStrategies:
+      - onFailure:
+          errors:
+            - AllErrors
+          action:
+            type: StageRollback
+  identifier: Deploy
+  versionLabel: v1
