@@ -1,0 +1,14 @@
+pipeline:
+  name: Deploy using Template
+  identifier: Deploy_using_Template
+  projectIdentifier: thomas_kouhsari
+  orgIdentifier: December_2023
+  tags: {}
+  stages:
+    - stage:
+        name: Deploy
+        identifier: Deploy
+        template:
+          templateRef: Deploy
+          versionLabel: v1
+          gitBranch: master
